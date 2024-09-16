@@ -21,7 +21,7 @@ public class PoolObjects<T> : MonoBehaviour where T : MonoBehaviour
         );
     } 
 
-    public T Get() => _pool.Get();
+    public T Get() => _pool.Get(); //Object reference not set to an instance of an object
 
     public void Release(T gameObject) => _pool.Release(gameObject);
 
