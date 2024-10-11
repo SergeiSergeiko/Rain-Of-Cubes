@@ -6,6 +6,6 @@ public class ActiveObjectsDisplay : ScoreDisplay
 {
     private void Awake()
     {
-        Statistics.NumberActiveObjectsChanged += SetValue;
+        Statistics.NumberActiveObjectsHasChanged += SetValue;
     }
 }

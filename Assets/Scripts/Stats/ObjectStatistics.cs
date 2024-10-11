@@ -3,38 +3,47 @@ using UnityEngine;
 
 public class ObjectStatistics : MonoBehaviour
 {
-    private IReadOnlySpawnObjects _eventBus;
+    private IReadOnlySpawnStatistics _eventBus;
 
-    public event Action<int> NumberObjectsCreatedChanged;
-    public event Action<int> NumberSpawnedObjectsChanged;
-    public event Action<int> NumberActiveObjectsChanged;
+    public event Action<int> NumberCreatedObjectsHasChanged;
+    public event Action<int> NumberSpawnedObjectsHasChanged;
+    public event Action<int> NumberActiveObjectsHasChanged;
 
     public int NumberObjectsCreated { get; private set; }
     public int NumberSpawnedObjects { get; private set; }
     public int NumberActiveObjects { get; private set; }
 
-    public void InitEventBus(IReadOnlySpawnObjects eventBus)
+    public void InitEventBus(IReadOnlySpawnStatistics eventBus)
     {
         _eventBus = eventBus;
 
+        _eventBus.ObjectCreated += IncreaseNumberObjectsCreated;
         _eventBus.ObjectSpawned += IncreaseNumberSpawnedObjects;
-        _eventBus.ChangedActiveObjects += OnNumberActiveObjectsHandler;
-        _eventBus.CreatedObject += IncreaseNumberObjectsCreated;
+        _eventBus.ObjectWasActivated += IncreaseNumberActiveObjects;
+        _eventBus.ObjectHasBeenDeactivated += DecreaseNumberActiveObjects;
     }
 
     private void IncreaseNumberObjectsCreated()
     {
         NumberObjectsCreated++;
-        NumberObjectsCreatedChanged?.Invoke(NumberObjectsCreated);
+        NumberCreatedObjectsHasChanged?.Invoke(NumberObjectsCreated);
     }
+
     private void IncreaseNumberSpawnedObjects()
     { 
         NumberSpawnedObjects++;
-        NumberSpawnedObjectsChanged?.Invoke(NumberSpawnedObjects);
+        NumberSpawnedObjectsHasChanged?.Invoke(NumberSpawnedObjects);
     }
-    private void OnNumberActiveObjectsHandler(int count)
+
+    private void IncreaseNumberActiveObjects()
     {
-        NumberActiveObjects = count;
-        NumberActiveObjectsChanged?.Invoke(NumberActiveObjects);
+        NumberActiveObjects++;
+        NumberActiveObjectsHasChanged?.Invoke(NumberActiveObjects);
+    }
+
+    private void DecreaseNumberActiveObjects()
+    {
+        NumberActiveObjects--;
+        NumberActiveObjectsHasChanged?.Invoke(NumberActiveObjects);
     }
 }

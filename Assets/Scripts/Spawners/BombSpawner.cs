@@ -14,6 +14,9 @@ public class BombSpawner : Spawner<Bomb>
     private void BombDiedHandler(Unit unit)
     {
         if (unit is Bomb bomb)
+        {
+            bomb.Dies -= BombDiedHandler;
             Pool.Release(bomb);
+        }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -39,7 +38,7 @@ public class PoolObjects<T> : MonoBehaviour where T : MonoBehaviour
     private T Create()
     {
         T obj = Instantiate(_prefab);
-        _eventBus.TriggerCreatedObject();
+        _eventBus.TriggerObjectCreated();
 
         return obj;
     }
@@ -47,12 +46,13 @@ public class PoolObjects<T> : MonoBehaviour where T : MonoBehaviour
     private void OnGet(T obj)
     {
         obj.gameObject.SetActive(true);
-        _eventBus.TriggerChangedActiveObjects(_pool.CountActive);
+        _eventBus.TriggerObjectWasActivated();
     }
 
     private void OnRelease(T obj)
     {
         obj.gameObject.SetActive(false);
+        _eventBus.TriggerObjectHasBeenDeactivated();
     }
 
     private void OnDestroyObj(T obj)

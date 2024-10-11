@@ -25,7 +25,10 @@ public class CubeSpawner : Spawner<Cube>
     private void CubeDiedHandler(Unit unit)
     {
         if (unit is Cube cube)
+        {
+            cube.Dies -= CubeDiedHandler;
             Pool.Release(cube);
+        }
     }
 
     private IEnumerator Spawning()

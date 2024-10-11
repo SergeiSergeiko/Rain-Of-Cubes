@@ -6,6 +6,6 @@ public class SpawnedObjectsDisplay : ScoreDisplay
 {
     private void Awake()
     {
-        Statistics.NumberSpawnedObjectsChanged += SetValue;
+        Statistics.NumberSpawnedObjectsHasChanged += SetValue;
     }
 }
