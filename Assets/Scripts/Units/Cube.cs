@@ -1,40 +1,35 @@
-using DG.Tweening;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshRenderer))]
 public class Cube : Unit
 {
-    private MeshRenderer _renderer;
-    private Tween _tween;
-    private Color _defaultColor;
-    private Color _invisibilityColor;
+    [SerializeField] private ColorChanger _colorChanger;
 
-    protected override void OnEnable()
+    private bool _isColorChanged = false;
+
+    public void CollidePlatformTrigger()
     {
-        base.OnEnable();
-        _tween = _renderer.material.DOColor(_invisibilityColor, LifeTime);
+        if (_isColorChanged)
+            return;
+
+        ChangeColorRandomly();
+        StartLifeTimer();
     }
 
-    private void OnDisable()
+    protected override void Die()
     {
-        _tween.Kill();
-        _renderer.material.color = _defaultColor;
+        ResetColor();
+        base.Die();
     }
 
-    private void Awake()
+    private void ChangeColorRandomly()
     {
-        _renderer = GetComponent<MeshRenderer>();
-        _defaultColor = _renderer.material.color;
-        _invisibilityColor = GetYourColorAlpha0();
+        _colorChanger.ChangeColorRandomly();
+        _isColorChanged = true;
     }
 
-    private Color GetYourColorAlpha0()
+    private void ResetColor()
     {
-        float alpha = 0;
-
-        Color color = _renderer.material.color;
-        color.a = alpha;
-
-        return color;
+        _colorChanger.ResetColor();
+        _isColorChanged = false;
     }
 }

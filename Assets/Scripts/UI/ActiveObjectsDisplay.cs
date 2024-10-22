@@ -4,8 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(TMP_Text))]
 public class ActiveObjectsDisplay : ScoreDisplay
 {
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Statistics.NumberActiveObjectsHasChanged += SetValue;
     }
 }

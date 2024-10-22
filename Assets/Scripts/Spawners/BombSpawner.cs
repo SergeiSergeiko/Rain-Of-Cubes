@@ -1,4 +1,4 @@
-public class BombSpawner : Spawner<Bomb>
+public class BombSpawner : GenericSpawner<Bomb>
 {
     public void OwnerDiedHandler(Unit unit)
     {

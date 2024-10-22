@@ -10,10 +10,11 @@ public class ScoreDisplay : MonoBehaviour
 
     private TMP_Text _text;
 
-    private void OnEnable()
+    protected virtual void Awake()
     {
         _text = GetComponent<TMP_Text>();
+        SetValue();
     }
 
-    protected void SetValue(int value) => _text.text = $"{_scoreName}: {value}";
+    protected void SetValue(int value = 0) => _text.text = $"{_scoreName}: {value}";
 }

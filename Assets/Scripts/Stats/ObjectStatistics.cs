@@ -23,25 +23,25 @@ public class ObjectStatistics : MonoBehaviour
         _eventBus.ObjectHasBeenDeactivated += DecreaseNumberActiveObjects;
     }
 
-    private void IncreaseNumberObjectsCreated()
+    protected void IncreaseNumberObjectsCreated()
     {
         NumberObjectsCreated++;
         NumberCreatedObjectsHasChanged?.Invoke(NumberObjectsCreated);
     }
 
-    private void IncreaseNumberSpawnedObjects()
+    protected void IncreaseNumberSpawnedObjects()
     { 
         NumberSpawnedObjects++;
         NumberSpawnedObjectsHasChanged?.Invoke(NumberSpawnedObjects);
     }
 
-    private void IncreaseNumberActiveObjects()
+    protected void IncreaseNumberActiveObjects()
     {
         NumberActiveObjects++;
         NumberActiveObjectsHasChanged?.Invoke(NumberActiveObjects);
     }
 
-    private void DecreaseNumberActiveObjects()
+    protected void DecreaseNumberActiveObjects()
     {
         NumberActiveObjects--;
         NumberActiveObjectsHasChanged?.Invoke(NumberActiveObjects);

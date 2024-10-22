@@ -1,1 +1,1 @@
-public class BombPool : PoolObjects<Bomb> { }
+public class BombPool : GenericPoolObjects<Bomb> { }

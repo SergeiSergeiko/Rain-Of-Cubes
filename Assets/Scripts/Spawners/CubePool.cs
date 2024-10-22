@@ -1,1 +1,1 @@
-public class CubesPool : PoolObjects<Cube> { }
+public class CubesPool : GenericPoolObjects<Cube> { }

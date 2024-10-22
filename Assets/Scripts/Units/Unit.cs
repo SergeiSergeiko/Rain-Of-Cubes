@@ -1,23 +1,22 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Unit : MonoBehaviour
 {
+    [SerializeField] private Timer _timer;
+
     private Rigidbody _rigidbody;
     private int _minLifeTime = 2;
-    private int _maxLifeTime = 10;
+    private int _maxLifeTime = 5;
 
     public event Action<Unit> Dies;
 
     public int LifeTime { get; private set; }
 
-    protected virtual void OnEnable()
+    private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        LifeTime = UnityEngine.Random.Range(_minLifeTime, _maxLifeTime);
-        StartCoroutine(CountdownLifeTime());
     }
 
     protected virtual void Die()
@@ -26,25 +25,25 @@ public class Unit : MonoBehaviour
         Dies?.Invoke(this);
     }
 
+    protected void StartLifeTimer()
+    {
+        LifeTime = UnityEngine.Random.Range(_minLifeTime, _maxLifeTime);
+
+        _timer.TimeIsUp += OnTimerIsUpHandler;
+        _timer.StartTimer(LifeTime);
+    }
+
+    private void OnTimerIsUpHandler()
+    {
+        _timer.TimeIsUp -= OnTimerIsUpHandler;
+
+        Die();
+    }
+
     private void ResetRigidbody()
     {
         _rigidbody.rotation = Quaternion.identity;
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.angularVelocity = Vector3.zero;
-    }
-
-
-    private IEnumerator CountdownLifeTime()
-    {
-        float time = 0;
-
-        while (time < LifeTime)
-        {
-            time += Time.deltaTime;
-
-            yield return null;
-        }
-
-        Die();
     }
 }

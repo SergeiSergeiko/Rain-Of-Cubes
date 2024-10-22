@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class PoolObjects<T> : MonoBehaviour where T : MonoBehaviour
+public class GenericPoolObjects<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] private T _prefab;
     [SerializeField] private int _capacity;

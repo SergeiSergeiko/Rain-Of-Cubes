@@ -1,21 +1,19 @@
 using UnityEngine;
 
-public class Spawner<T> : MonoBehaviour where T : MonoBehaviour
+public class GenericSpawner<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] protected T Prefab;
-    [SerializeField] protected PoolObjects<T> Pool;
-
-    [SerializeField] private ObjectStatistics _objectStatistics;
+    [SerializeField] protected GenericPoolObjects<T> Pool;
+    [SerializeField] protected ObjectStatistics ObjectStatistics;
 
     private EventBus _eventBus;
 
     protected virtual void Start()
     {
-        EventBus eventBus = new();
-        _eventBus = eventBus;
+        _eventBus = new();
 
-        _objectStatistics.InitEventBus(_eventBus);
-        Pool.InitEventBus(eventBus);
+        ObjectStatistics.InitEventBus(_eventBus);
+        Pool.InitEventBus(_eventBus);
     }
 
     protected virtual void Spawn(Vector3 position)

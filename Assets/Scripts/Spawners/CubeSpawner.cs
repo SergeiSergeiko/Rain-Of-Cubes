@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class CubeSpawner : Spawner<Cube>
+public class CubeSpawner : GenericSpawner<Cube>
 {
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private float _delay;
