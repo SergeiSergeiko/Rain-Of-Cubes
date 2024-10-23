@@ -9,4 +9,9 @@ public class SpawnedObjectsDisplay : ScoreDisplay
         base.Awake();
         Statistics.NumberSpawnedObjectsHasChanged += SetValue;
     }
+
+    private void OnDisable()
+    {
+        Statistics.NumberSpawnedObjectsHasChanged -= SetValue;
+    }
 }

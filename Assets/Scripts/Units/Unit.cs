@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour
     private int _minLifeTime = 2;
     private int _maxLifeTime = 5;
 
-    public event Action<Unit> Dies;
+    public event Action<Unit> Died;
 
     public int LifeTime { get; private set; }
 
@@ -22,20 +22,20 @@ public class Unit : MonoBehaviour
     protected virtual void Die()
     {
         ResetRigidbody();
-        Dies?.Invoke(this);
+        Died?.Invoke(this);
     }
 
     protected void StartLifeTimer()
     {
         LifeTime = UnityEngine.Random.Range(_minLifeTime, _maxLifeTime);
 
-        _timer.TimeIsUp += OnTimerIsUpHandler;
+        _timer.TimeIsUp += OnEventTimerIsUp;
         _timer.StartTimer(LifeTime);
     }
 
-    private void OnTimerIsUpHandler()
+    private void OnEventTimerIsUp()
     {
-        _timer.TimeIsUp -= OnTimerIsUpHandler;
+        _timer.TimeIsUp -= OnEventTimerIsUp;
 
         Die();
     }

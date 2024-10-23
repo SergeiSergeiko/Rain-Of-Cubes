@@ -9,4 +9,9 @@ public class ActiveObjectsDisplay : ScoreDisplay
         base.Awake();
         Statistics.NumberActiveObjectsHasChanged += SetValue;
     }
+
+    private void OnDisable()
+    {
+        Statistics.NumberActiveObjectsHasChanged -= SetValue;
+    }
 }

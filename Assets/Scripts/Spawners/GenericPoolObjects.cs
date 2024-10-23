@@ -57,6 +57,6 @@ public class GenericPoolObjects<T> : MonoBehaviour where T : MonoBehaviour
 
     private void OnDestroyObj(T obj)
     {
-        Destroy(obj);
+        Destroy(obj.gameObject);
     }
 }

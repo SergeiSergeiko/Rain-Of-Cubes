@@ -6,6 +6,12 @@ public class Cube : Unit
 
     private bool _isColorChanged = false;
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out Platform _))
+            CollidePlatformTrigger();
+    }
+
     public void CollidePlatformTrigger()
     {
         if (_isColorChanged)

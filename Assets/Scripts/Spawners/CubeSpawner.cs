@@ -18,15 +18,15 @@ public class CubeSpawner : GenericSpawner<Cube>
 
     protected override void Subscribe(Cube cube)
     {
-        cube.Dies += _bombSpawner.OwnerDiedHandler;
-        cube.Dies += CubeDiedHandler;
+        cube.Died += _bombSpawner.OnEventCubeDied;
+        cube.Died += CubeDiedHandler;
     }
 
     private void CubeDiedHandler(Unit unit)
     {
         if (unit is Cube cube)
         {
-            cube.Dies -= CubeDiedHandler;
+            cube.Died -= CubeDiedHandler;
             Pool.Release(cube);
         }
     }

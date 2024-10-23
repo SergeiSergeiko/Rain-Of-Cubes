@@ -1,21 +1,21 @@
 public class BombSpawner : GenericSpawner<Bomb>
 {
-    public void OwnerDiedHandler(Unit unit)
+    public void OnEventCubeDied(Unit unit)
     {
-        unit.Dies -= OwnerDiedHandler;
+        unit.Died -= OnEventCubeDied;
         Spawn(unit.transform.position);
     }
 
     protected override void Subscribe(Bomb bomb)
     {
-        bomb.Dies += BombDiedHandler;
+        bomb.Died += OnEventBombDied;
     }
 
-    private void BombDiedHandler(Unit unit)
+    private void OnEventBombDied(Unit unit)
     {
         if (unit is Bomb bomb)
         {
-            bomb.Dies -= BombDiedHandler;
+            bomb.Died -= OnEventBombDied;
             Pool.Release(bomb);
         }
     }
