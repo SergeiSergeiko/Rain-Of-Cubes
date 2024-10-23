@@ -18,7 +18,7 @@ public class CubeSpawner : GenericSpawner<Cube>
 
     protected override void Subscribe(Cube cube)
     {
-        cube.Died += _bombSpawner.OnEventCubeDied;
+        cube.Died += _bombSpawner.Spawn;
         cube.Died += CubeDiedHandler;
     }
 
